@@ -17,16 +17,24 @@ export function ContactForm() {
     const form = e.currentTarget;
     const data = new FormData(form);
 
+    const payload = {
+      name: String(data.get("name") ?? "").trim(),
+      email: String(data.get("email") ?? "").trim(),
+      subject: String(data.get("subject") ?? "").trim(),
+      body: String(data.get("body") ?? "").trim(),
+    };
+
+    if (payload.body.length < 5) {
+      setState("error");
+      setMessage(`需求說明至少 5 個字（目前 ${payload.body.length} 字）。`);
+      return;
+    }
+
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: data.get("name"),
-          email: data.get("email"),
-          subject: data.get("subject"),
-          body: data.get("body"),
-        }),
+        body: JSON.stringify(payload),
       });
 
       const json = (await res.json()) as { ok?: boolean; error?: string };
@@ -51,7 +59,7 @@ export function ContactForm() {
         <ul className="mt-4 space-y-4 text-sm text-slate-600">
           <li>
             <span className="block font-medium text-slate-800">Email</span>
-            <a href={`mailto:${site.email}`} className="text-sky-700 hover:underline">
+            <a href={`mailto:${site.email}`} className="text-violet-700 hover:underline">
               {site.email}
             </a>
           </li>
@@ -61,7 +69,7 @@ export function ContactForm() {
               href={site.linkedInUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sky-700 hover:underline"
+              className="text-violet-700 hover:underline"
             >
               查看個人檔案
             </a>
@@ -72,7 +80,7 @@ export function ContactForm() {
               href={site.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sky-700 hover:underline"
+              className="text-violet-700 hover:underline"
             >
               {site.githubUrl.replace("https://", "")}
             </a>
@@ -90,7 +98,7 @@ export function ContactForm() {
             <input
               name="name"
               required
-              className="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 outline-none ring-sky-500 focus:ring-2"
+              className="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 outline-none ring-violet-500 focus:ring-2"
             />
           </label>
           <label className="block text-sm">
@@ -99,7 +107,7 @@ export function ContactForm() {
               name="email"
               type="email"
               required
-              className="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 outline-none ring-sky-500 focus:ring-2"
+              className="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 outline-none ring-violet-500 focus:ring-2"
             />
           </label>
         </div>
@@ -109,7 +117,7 @@ export function ContactForm() {
             name="subject"
             required
             placeholder="例如：官網改版、後台系統估價"
-            className="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 outline-none ring-sky-500 focus:ring-2"
+            className="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 outline-none ring-violet-500 focus:ring-2"
           />
         </label>
         <label className="block text-sm">
@@ -117,15 +125,16 @@ export function ContactForm() {
           <textarea
             name="body"
             required
+            minLength={5}
             rows={5}
-            placeholder="簡述目標、時程、預算區間（選填）"
-            className="w-full resize-y rounded-lg border border-slate-300 px-3 py-2 text-slate-900 outline-none ring-sky-500 focus:ring-2"
+            placeholder="請至少 5 字，例如：想了解前端職缺／官網估價／可面談時間"
+            className="w-full resize-y rounded-lg border border-slate-300 px-3 py-2 text-slate-900 outline-none ring-violet-500 focus:ring-2"
           />
         </label>
         <button
           type="submit"
           disabled={state === "submitting"}
-          className="w-full rounded-full bg-slate-900 py-3 text-sm font-medium text-white transition hover:bg-slate-800 disabled:opacity-60 sm:w-auto sm:px-8"
+          className="w-full rounded-full bg-gradient-to-r from-violet-600 to-fuchsia-600 py-3 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-60 sm:w-auto sm:px-8"
         >
           {state === "submitting" ? "送出中…" : "送出訊息"}
         </button>

@@ -40,7 +40,7 @@ type ServiceIconProps = {
 export function ServiceIcon({ name }: ServiceIconProps) {
   return (
     <svg
-      className="h-7 w-7 text-sky-700"
+      className="h-7 w-7 text-violet-600"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"

@@ -56,7 +56,7 @@ export const experience = [
   },
   {
     role: "軟體工程師",
-    company: "AValue 智慧價值股份有限公司",
+    company: "AIValue 智慧價值股份有限公司",
     employment: "正職",
     period: "2021/7 — 2024/4",
     location: "台北市內湖 · 現場",
@@ -186,23 +186,39 @@ export const processSteps = [
   },
 ] as const;
 
+export const workSection = {
+  title: "作品展示",
+  subtitle: "含實際畫面截圖；點 Demo 可進入線上版本。",
+} as const;
+
+export const heroFeaturedImage = "/projects/fam-attendance/dashboard.png";
+
 export const projects = [
   {
-    title: "個人網站",
-    description: "使用 Next.js、Tailwind CSS 與 TypeScript 開發的個人網站。",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Vercel"],
+    title: "出席管理系統",
+    description:
+      "教會與社區出席管理：儀表板統計、成員與小組 CRUD、週日出席矩陣、RWD 行動版。Next.js、MySQL、Drizzle ORM。",
+    tags: ["Next.js", "TypeScript", "MySQL", "Drizzle ORM", "Vercel"],
+    image: "/projects/fam-attendance/dashboard.png",
+    gallery: [
+      "/projects/fam-attendance/attendance.png",
+      "/projects/fam-attendance/fams.png",
+      "/projects/fam-attendance/mobile.png",
+    ],
+    featured: true,
     links: {
-      demo: "https://landing-page-one-coral-89.vercel.app/",
+      demo: "https://fam-attendance-tracking.vercel.app/",
       github: site.githubUrl,
     },
   },
   {
-    title: "出席管理系統",
+    title: "個人網站",
     description:
-      "專為教會與社區組織設計的出席管理系統，採用 Next.js、MySQL 與 Drizzle ORM 建置。",
-    tags: ["Next.js", "TypeScript", "MySQL", "Drizzle ORM", "Vercel"],
+      "使用 Next.js、Tailwind CSS 與 TypeScript 開發的個人品牌網站（本頁）。",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Vercel"],
+    image: "/projects/personal-site/landing.png",
     links: {
-      demo: "https://fam-attendance-tracking.vercel.app/",
+      demo: "https://landing-page-one-coral-89.vercel.app/",
       github: site.githubUrl,
     },
   },
@@ -211,6 +227,7 @@ export const projects = [
     description:
       "使用 Spring Boot、Java 17、JPA 與 PostgreSQL 開發的出席管理 RESTful API。",
     tags: ["Spring Boot", "Java 17", "JPA", "PostgreSQL", "Render"],
+    image: "/projects/springboot-api/swagger-ui.png",
     links: {
       demo: "https://fam-attendance-springboot-api.onrender.com/",
       github: site.githubUrl,
@@ -219,11 +236,16 @@ export const projects = [
   {
     title: "台股量化選股與紙交易專案",
     description:
-      "結合道氏理論（趨勢過濾）、橫截面動能與系統化風控（固定停損 + 移動停損），以 0050 為核心配置，搭配成分股策略池進行回測與實盤前驗證。",
+      "結合道氏理論（趨勢過濾）、橫截面動能與系統化風控（固定停損 + 移動停損），以 0050 為核心配置。附 2010 年起定期定額回測與不同配比比較；紙交易仍驗證中（未滿半年）。圖表為歷史回測，非未來績效保證。",
     tags: ["Python", "量化交易", "回測"],
+    image: "/projects/taiwan-quant/dca-equity.png",
+    gallery: [
+      "/projects/taiwan-quant/drawdown.png",
+      "/projects/taiwan-quant/metrics-table.png",
+    ],
     links: {
       demo: "#",
-      github: site.githubUrl,
+      github: "https://github.com/steven-oss/Theoretical-Stock-Selection",
     },
   },
 ] as const;

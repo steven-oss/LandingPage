@@ -4,12 +4,17 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { ServiceIcon } from "@/components/ServiceIcon";
 import {
   about,
+  experience,
+  experienceSection,
   ctaBanner,
   faq,
+  faqSection,
   hero,
+  processSection,
   processSteps,
   projects,
   services,
+  servicesSection,
   site,
   techStack,
 } from "@/content/site";
@@ -33,7 +38,7 @@ export default function Home() {
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-600">
               {hero.subtitle}
             </p>
-            <div className="mt-8 flex flex-wrap gap-4">
+            <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href={hero.primaryCta.href}
                 className="inline-flex items-center justify-center rounded-full bg-slate-900 px-6 py-3 text-sm font-medium text-white transition hover:bg-slate-800"
@@ -46,6 +51,12 @@ export default function Home() {
               >
                 {hero.secondaryCta.label}
               </a>
+              <a
+                href={hero.tertiaryCta.href}
+                className="inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-medium text-sky-800 transition hover:text-sky-950"
+              >
+                {hero.tertiaryCta.label}
+              </a>
             </div>
             <p className="mt-8 text-sm text-slate-500">
               {site.location} · {site.title}
@@ -54,7 +65,7 @@ export default function Home() {
         </section>
 
         {/* About (LinkedIn 關於) */}
-        <section className="border-b border-slate-100 bg-white py-16 sm:py-20">
+        <section id="about" className="scroll-mt-20 border-b border-slate-100 bg-white py-16 sm:py-20">
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
             <SectionHeading eyebrow="About" title="關於我" />
             <div className="mt-8 max-w-3xl space-y-4 text-base leading-relaxed text-slate-600">
@@ -65,13 +76,61 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Experience */}
+        <section id="experience" className="scroll-mt-20 border-b border-slate-100 bg-slate-50 py-16 sm:py-20">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            <SectionHeading
+              eyebrow="Experience"
+              title={experienceSection.title}
+              subtitle={experienceSection.subtitle}
+            />
+            <ul className="mt-12 space-y-8">
+              {experience.map((job) => (
+                <li
+                  key={`${job.company}-${job.project}`}
+                  className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8"
+                >
+                  <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-baseline sm:justify-between">
+                    <div>
+                      <h3 className="text-lg font-semibold text-slate-900">
+                        {job.role}
+                        <span className="font-normal text-slate-600"> · {job.company}</span>
+                      </h3>
+                      <p className="mt-1 text-sm font-medium text-sky-800">{job.project}</p>
+                    </div>
+                    <p className="text-sm text-slate-500">
+                      {job.period} · {job.employment}
+                      <span className="hidden sm:inline"> · {job.location}</span>
+                    </p>
+                  </div>
+                  <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-600">
+                    {job.highlights.map((line) => (
+                      <li key={line.slice(0, 32)}>{line}</li>
+                    ))}
+                  </ul>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {job.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-md bg-slate-100 px-2 py-1 text-xs font-medium text-slate-700"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
         {/* Services */}
-        <section id="services" className="scroll-mt-20 bg-slate-50 py-16 sm:py-20">
+        <section id="services" className="scroll-mt-20 bg-white py-16 sm:py-20">
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
             <SectionHeading
               eyebrow="Services"
-              title="服務介紹"
-              subtitle="從官網到完整 Web 應用，依需求提供端到端或前端專項協作。"
+              title={servicesSection.title}
+              subtitle={servicesSection.subtitle}
             />
             <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {services.map((s) => (
@@ -117,10 +176,10 @@ export default function Home() {
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
             <SectionHeading
               eyebrow="Process"
-              title="開發流程"
-              subtitle="需求 → 規劃 → 開發 → 測試 → 部署，每階段透明對齊。"
+              title={processSection.title}
+              subtitle={processSection.subtitle}
             />
-            <ol className="mt-12 grid gap-6 md:grid-cols-5">
+            <ol className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {processSteps.map((step, i) => (
                 <li
                   key={step.step}
@@ -193,7 +252,12 @@ export default function Home() {
         {/* FAQ */}
         <section id="faq" className="scroll-mt-20 bg-slate-50 py-16 sm:py-20">
           <div className="mx-auto max-w-3xl px-4 sm:px-6">
-            <SectionHeading align="center" eyebrow="FAQ" title="常見問題" />
+            <SectionHeading
+              align="center"
+              eyebrow="FAQ"
+              title={faqSection.title}
+              subtitle={faqSection.subtitle}
+            />
             <dl className="mt-10 space-y-6">
               {faq.map((item) => (
                 <div
